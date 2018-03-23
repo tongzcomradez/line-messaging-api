@@ -7,12 +7,24 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.post('/webhook', (req, res) => {
     let reply_token = req.body.events[0].replyToken
-    console.log('events', req.body.events[0])
-    reply(reply_token)
-    res.sendStatus(200)
+    let msg = req.body.events[0].message.text
+    console.log('events', req.body.events[0].source.userId)
+    let headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer 7NOT+yYEOQQM2QMFxwG+4Jg+RAA0iKiqPFG/BlKXTHUug5+xjcrlg2uDayjzNZe0RrrmIpHct0XiSgZp4o2G8DM8B1I+Ih5gHdPd/tgd519YQc0B5+gnAHiP6D4ZNEJ0LLhMybZl++xkNDBRbLg6yQdB04t89/1O/w1cDnyilFU='
+    }
+    request.get({
+        url: 'https://api.line.me/v2/bot/profile/' + req.body.events[0].source.userId,
+        headers: headers,
+
+    }, (err, res, body) => {
+        reply(reply_token, msg, body)
+        res.sendStatus(200)
+    })
+    
 })
 app.listen(port)
-function reply(reply_token) {
+function reply(reply_token, body) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 7NOT+yYEOQQM2QMFxwG+4Jg+RAA0iKiqPFG/BlKXTHUug5+xjcrlg2uDayjzNZe0RrrmIpHct0XiSgZp4o2G8DM8B1I+Ih5gHdPd/tgd519YQc0B5+gnAHiP6D4ZNEJ0LLhMybZl++xkNDBRbLg6yQdB04t89/1O/w1cDnyilFU='
@@ -21,11 +33,7 @@ function reply(reply_token) {
         replyToken: reply_token,
         messages: [{
             type: 'text',
-            text: 'Hello'
-        },
-        {
-            type: 'text',
-            text: 'How are you?'
+            text: `ควยไร ${body.displayName}`
         }]
     })
     request.post({
