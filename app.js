@@ -34,7 +34,7 @@ app.post('/webhook', (req, res) => {
 })
 app.listen(port)
 function reply(reply_token, msg, memberIds, user) {
-    console.log('user', user)
+    console.log('user', memberIds)
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 7NOT+yYEOQQM2QMFxwG+4Jg+RAA0iKiqPFG/BlKXTHUug5+xjcrlg2uDayjzNZe0RrrmIpHct0XiSgZp4o2G8DM8B1I+Ih5gHdPd/tgd519YQc0B5+gnAHiP6D4ZNEJ0LLhMybZl++xkNDBRbLg6yQdB04t89/1O/w1cDnyilFU='
