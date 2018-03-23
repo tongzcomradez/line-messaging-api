@@ -18,7 +18,7 @@ app.post('/webhook', (req, res) => {
         headers: headers,
 
     }, (err, res, body) => {
-        reply(reply_token, msg, parseJSON(body))
+        reply(reply_token, msg, JSON.parse(body))
     })
 
     res.sendStatus(200)
