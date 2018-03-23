@@ -16,8 +16,7 @@ app.post('/webhook', (req, res) => {
     request.get({
         url: `https://api.line.me/v2/bot/group/${req.body.events[0].source.groupId}/members/ids`,
         headers: headers
-    }, (err, res, { memberIds }) => {
-
+    }, (err, res, memberIds) => {
         request.get({
             url: 'https://api.line.me/v2/bot/profile/' + req.body.events[0].source.userId,
             headers: headers,
