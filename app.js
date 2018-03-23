@@ -13,39 +13,25 @@ app.post('/webhook', (req, res) => {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 7NOT+yYEOQQM2QMFxwG+4Jg+RAA0iKiqPFG/BlKXTHUug5+xjcrlg2uDayjzNZe0RrrmIpHct0XiSgZp4o2G8DM8B1I+Ih5gHdPd/tgd519YQc0B5+gnAHiP6D4ZNEJ0LLhMybZl++xkNDBRbLg6yQdB04t89/1O/w1cDnyilFU='
     }
+   
     request.get({
-        url: `https://api.line.me/v2/bot/group/${req.body.events[0].source.groupId}/members/ids`,
-        headers: headers
-    }, (err, res, memberIds) => {
-        console.log('group res', err, res, memberIds)
-        request.get({
-            url: 'https://api.line.me/v2/bot/profile/' + req.body.events[0].source.userId,
-            headers: headers,
-        }, (err, res, body) => {
-            reply(reply_token, msg, memberIds, JSON.parse(body))
-        })
-
+        url: 'https://api.line.me/v2/bot/profile/' + req.body.events[0].source.userId,
+        headers: headers,
+    }, (err, res, body) => {
+        reply(reply_token, msg, JSON.parse(body))
     })
-
-
-    
 
     res.sendStatus(200)
 })
 app.listen(port)
-function reply(reply_token, msg, memberIds, user) {
-    console.log('user', memberIds)
+
+function reply(reply_token, msg, user) {
     let headers = {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer 7NOT+yYEOQQM2QMFxwG+4Jg+RAA0iKiqPFG/BlKXTHUug5+xjcrlg2uDayjzNZe0RrrmIpHct0XiSgZp4o2G8DM8B1I+Ih5gHdPd/tgd519YQc0B5+gnAHiP6D4ZNEJ0LLhMybZl++xkNDBRbLg6yQdB04t89/1O/w1cDnyilFU='
     }
-    let text = ''
-    if (msg === 'สมาชิก') {
-        text = memberIds.join(', ')
-    }
-    else {
-        text = `รักนะ ${user.displayName} อึ้บๆ`
-    }
+    
+    let text = `รักนะ ${user.displayName} อึ้บๆ`
 
     let body = JSON.stringify({
         replyToken: reply_token,
