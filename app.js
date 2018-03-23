@@ -50,7 +50,7 @@ function reply(reply_token, msg, user) {
                 let body_send; 
                 if (err2) {
                     body_send = JSON.stringify({
-                        replyToken: reply_token,
+                        to: user.userId,
                         messages: [{
                             type: 'text',
                             text: `โปรเซส ${msg.toUpperCase()} มีปัญหาลองทำรายการใหม่`
@@ -59,7 +59,7 @@ function reply(reply_token, msg, user) {
                 }
                 else {
                     body_send = JSON.stringify({
-                        replyToken: reply_token,
+                        to: user.userId,
                         messages: [{
                             type: 'text',
                             text: `โปรเซส ${msg.toUpperCase()} สำเร็จจ้า`
@@ -68,11 +68,11 @@ function reply(reply_token, msg, user) {
                 }
                 console.log(body_send)
                 request.post({
-                    url: 'https://api.line.me/v2/bot/message/reply',
+                    url: 'https://api.line.me/v2/bot/message/push',
                     headers: headers,
                     body: body_send
                 }, (err, res, body) => {
-                    
+                    console.log('last msg', err)
                 });
             })
         });
