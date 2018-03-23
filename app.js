@@ -19,9 +19,9 @@ app.post('/webhook', (req, res) => {
 
     }, (err, res, body) => {
         reply(reply_token, msg, body)
-        res.sendStatus(200)
     })
-    
+
+    res.sendStatus(200)
 })
 app.listen(port)
 function reply(reply_token, user) {
