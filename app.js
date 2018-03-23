@@ -47,9 +47,9 @@ function reply(reply_token, msg, user) {
             request.post({
                 url: 'https://songshake:iL0veFungj%40i123@ci.songshakes.com/job/core/job/build/build?delay=0sec'
             }, (err2, res2, body2) => {
-                
+                let body_send; 
                 if (err2) {
-                    let body = JSON.stringify({
+                    let body_send = JSON.stringify({
                         replyToken: reply_token,
                         messages: [{
                             type: 'text',
@@ -58,7 +58,7 @@ function reply(reply_token, msg, user) {
                     })
                 }
                 else {
-                    let body = JSON.stringify({
+                    let body_send = JSON.stringify({
                         replyToken: reply_token,
                         messages: [{
                             type: 'text',
@@ -70,7 +70,7 @@ function reply(reply_token, msg, user) {
                 request.post({
                     url: 'https://api.line.me/v2/bot/message/reply',
                     headers: headers,
-                    body: body
+                    body: body_send
                 }, (err, res, body) => {
                     
                 });
