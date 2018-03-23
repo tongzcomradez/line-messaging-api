@@ -34,7 +34,7 @@ function reply(reply_token, msg, user) {
         replyToken: reply_token,
         messages: [{
             type: 'text',
-            text: `ควยไร ${user.displayName}`
+            text: `รักนะ ${user.displayName} อึ้บๆ`
         }]
     })
     request.post({
