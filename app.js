@@ -49,7 +49,7 @@ function reply(reply_token, msg, user) {
             }, (err2, res2, body2) => {
                 let body_send; 
                 if (err2) {
-                    let body_send = JSON.stringify({
+                    body_send = JSON.stringify({
                         replyToken: reply_token,
                         messages: [{
                             type: 'text',
@@ -58,7 +58,7 @@ function reply(reply_token, msg, user) {
                     })
                 }
                 else {
-                    let body_send = JSON.stringify({
+                    body_send = JSON.stringify({
                         replyToken: reply_token,
                         messages: [{
                             type: 'text',
@@ -66,7 +66,7 @@ function reply(reply_token, msg, user) {
                         }]
                     })
                 }
-
+                console.log(body_send)
                 request.post({
                     url: 'https://api.line.me/v2/bot/message/reply',
                     headers: headers,
