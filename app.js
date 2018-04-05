@@ -11,7 +11,7 @@ app.post('/webhook', (req, res) => {
     console.log('events', req.body.events[0])
     let headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 7NOT+yYEOQQM2QMFxwG+4Jg+RAA0iKiqPFG/BlKXTHUug5+xjcrlg2uDayjzNZe0RrrmIpHct0XiSgZp4o2G8DM8B1I+Ih5gHdPd/tgd519YQc0B5+gnAHiP6D4ZNEJ0LLhMybZl++xkNDBRbLg6yQdB04t89/1O/w1cDnyilFU='
+        'Authorization': `Bearer ${process.env.TOKEN}`
     }
    
     request.get({
@@ -28,7 +28,7 @@ app.listen(port)
 function reply(reply_token, msg, user) {
     let headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer 7NOT+yYEOQQM2QMFxwG+4Jg+RAA0iKiqPFG/BlKXTHUug5+xjcrlg2uDayjzNZe0RrrmIpHct0XiSgZp4o2G8DM8B1I+Ih5gHdPd/tgd519YQc0B5+gnAHiP6D4ZNEJ0LLhMybZl++xkNDBRbLg6yQdB04t89/1O/w1cDnyilFU='
+        'Authorization': `Bearer ${process.env.TOKEN}`
     }
     
     if (msg === 'build core') {
@@ -45,7 +45,7 @@ function reply(reply_token, msg, user) {
             body: body
         }, (err, res, body) => {
             request.post({
-                url: 'https://songshake:iL0veFungj%40i123@ci.songshakes.com/job/core/job/build/build?delay=0sec'
+                url: `${precess.env.WEBHOOK}`
             }, (err2, res2, body2) => {
                 let body_send; 
                 if (err2) {
@@ -76,8 +76,6 @@ function reply(reply_token, msg, user) {
                 });
             })
         });
-        
-        
     }
     else {
         let text = `รักนะ ${user.displayName} อึ้บๆ`
